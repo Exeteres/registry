@@ -5,6 +5,7 @@ on:
     branches: ["master"]
     paths:
       - "nix-serve/**"
+      - ".github/workflows/nix-serve.yaml"
 
 env:
   REGISTRY: ghcr.io
