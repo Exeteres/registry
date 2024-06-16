@@ -38,7 +38,7 @@ jobs:
         run: npm install -g @devcontainers/cli
 
       - name: Build devcontainer
-        run: devcontainers build --image-name devcontainer --workspace-folder devcontainer --cache-from type=gha --cache-to type=gha,mode=max
+        run: devcontainer build --image-name devcontainer --workspace-folder devcontainer --cache-from type=gha --cache-to type=gha,mode=max
 
       - name: Log in to the registry
         uses: docker/login-action@v3
