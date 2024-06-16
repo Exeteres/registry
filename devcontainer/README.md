@@ -18,9 +18,7 @@ Here is an example of how to use this devcontainer in your project:
   "name": "Project Name",
   "dockerComposeFile": "docker-compose.yml",
   "service": "main",
-  "workspaceFolder": "/home/dev/workspace",
-
-  "remoteUser": "dev"
+  "workspaceFolder": "/home/dev/workspace"
 }
 ```
 
@@ -42,6 +40,8 @@ networks:
     driver_opts:
       com.docker.network.driver.mtu: 1200
 ```
+
+You can also add some credentials mounts like `~/.kube` or `~/.pulumi` to authenticate the tools.
 
 ## Features
 
