@@ -5,15 +5,6 @@
   },
 
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "username": "dev",
-      "uid": 1001,
-      "gid": 1001,
-      "installZsh": false,
-      "installOhMyZsh": false,
-      "installOhMyZshConfig": false,
-      "upgradePackages": false
-    },
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
 

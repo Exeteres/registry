@@ -6,7 +6,7 @@
 # ----------------
 
 # Common
-# buildpack-deps:24-04 (as of 2024-06-16)
+# buildpack-deps:24.04 (as of 2024-06-16)
 ARG BASE_IMAGE=buildpack-deps@sha256:9f35d074ab95834d6be3e55f54306ebe6bc53bf79e68601b46a8ba7f8cd4adfd
 
 # Crd2Pulumi
@@ -96,7 +96,11 @@ RUN curl -LO https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz && \
 
 FROM ${BASE_IMAGE}
 
-RUN useradd -ms /bin/bash dev
+# Rename ubuntu user to dev
+RUN usermod -l dev ubuntu && \
+    groupmod -n dev ubuntu && \
+    usermod -d /home/dev -m dev
+
 USER dev
 WORKDIR /home/dev
 
