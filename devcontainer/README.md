@@ -50,3 +50,4 @@ You can also add some credentials mounts like `~/.kube` or `~/.pulumi` to authen
 - Golang
 - kubectl + helm + pulumi + crd2pulumi
 - Docker in Docker
+- Nix (+ nil and alejandra)
