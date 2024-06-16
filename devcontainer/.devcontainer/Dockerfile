@@ -93,24 +93,24 @@ WORKDIR /home/dev
 # Create directories for tools and add them to PATH
 RUN mkdir -p /home/dev/.local/bin && \
     mkdir -p /home/dev/.cache && \
-    echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 
 # Crd2Pulumi
-COPY --from=crd2pulumi /crd2pulumi ~/.local/bin/crd2pulumi
+COPY --from=crd2pulumi /crd2pulumi .local/bin/crd2pulumi
 
 # NodeJS
-COPY --from=nodejs /root/.nvm ~/.nvm
-COPY --from=nodejs /root/.cache/node ~/.cache/node
-COPY --from=nodejs /root/.yarnrc.yml ~/.yarnrc.yml
+COPY --from=nodejs /root/.nvm .nvm
+COPY --from=nodejs /root/.cache/node .cache/node
+COPY --from=nodejs /root/.yarnrc.yml .yarnrc.yml
 
 # kubectl
-COPY --from=kubectl /kubectl ~/.local/bin/kubectl
+COPY --from=kubectl /kubectl .local/bin/kubectl
 
 # Helm
-COPY --from=helm /linux-amd64/helm ~/.local/bin/helm
+COPY --from=helm /linux-amd64/helm .local/bin/helm
 
 # Golang
-COPY --from=golang /go ~/.local/go
+COPY --from=golang /go .local/go
 RUN echo 'export PATH="$HOME/.local/go/bin:$PATH"' >> ~/.bashrc && \
     echo 'export GOPATH="$HOME/go"' >> ~/.bashrc && \
     echo 'export PATH="$HOME/go/bin:$PATH"' >> ~/.bashrc
