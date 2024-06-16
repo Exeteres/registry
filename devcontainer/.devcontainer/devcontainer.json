@@ -1,0 +1,21 @@
+{
+  "build": {
+    "dockerfile": "./Dockerfile",
+    "context": "."
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "dev",
+      "uid": 1000,
+      "gid": 1000,
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "installOhMyZshConfig": false,
+      "upgradePackages": false
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "remoteUser": "dev"
+}
