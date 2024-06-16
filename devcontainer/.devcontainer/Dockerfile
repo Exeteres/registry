@@ -24,6 +24,9 @@ ARG KUBECTL_VERSION=1.30.2
 # Helm
 ARG HELM_VERSION=3.14.4
 
+# Pulumi
+ARG PULUMI_VERSION=3.120.0
+
 # Golang
 ARG GOLANG_VERSION=1.22.2
 
@@ -63,7 +66,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/instal
 # - /kubectl
 FROM ${BASE_IMAGE} as kubectl
 ARG KUBECTL_VERSION
-RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && chmod +x kubectl
 
 # Helm
 # Outputs:
@@ -71,6 +74,13 @@ RUN curl -LO "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kube
 FROM ${BASE_IMAGE} as helm
 ARG HELM_VERSION
 RUN curl https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm.tar.gz && tar -zxvf helm.tar.gz
+
+# Pulumi
+# Outputs:
+# - /root/.pulumi
+FROM ${BASE_IMAGE} as pulumi
+ARG PULUMI_VERSION
+RUN curl -fsSL https://get.pulumi.com | sh -s -- --version ${PULUMI_VERSION}
 
 # Golang
 # Outputs:
@@ -108,6 +118,10 @@ COPY --from=kubectl /kubectl .local/bin/kubectl
 
 # Helm
 COPY --from=helm /linux-amd64/helm .local/bin/helm
+
+# Pulumi
+COPY --from=pulumi /root/.pulumi .local/pulumi
+RUN echo 'export PATH="$HOME/.local/pulumi/bin:$PATH"' >> ~/.bashrc
 
 # Golang
 COPY --from=golang /go .local/go
