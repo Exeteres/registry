@@ -116,6 +116,8 @@ COPY --from=crd2pulumi /crd2pulumi .local/bin/crd2pulumi
 COPY --from=nodejs /root/.nvm .nvm
 COPY --from=nodejs /root/.cache/node .cache/node
 COPY --from=nodejs /root/.yarnrc.yml .yarnrc.yml
+RUN echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc && \
+    echo '. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
 
 # kubectl
 COPY --from=kubectl /kubectl .local/bin/kubectl
