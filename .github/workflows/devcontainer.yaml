@@ -44,5 +44,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Normalize owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: "${{ github.repository_owner }}"
+
       - name: Build and push the image
-        run: devcontainer build --image-name ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }} --workspace-folder devcontainer --cache-from type=gha --cache-to type=gha,mode=max --push
+        run: devcontainer build --image-name ${{ env.REGISTRY }}/${{ env.OWNER_LC }}/${{ env.IMAGE_NAME }} --workspace-folder devcontainer --cache-from type=gha --cache-to type=gha,mode=max --push
