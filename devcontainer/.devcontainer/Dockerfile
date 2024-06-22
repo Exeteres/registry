@@ -95,7 +95,6 @@ RUN curl -LO https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz && \
 # ----------------
 
 FROM ${BASE_IMAGE}
-
 # Rename ubuntu user to dev
 RUN usermod -l dev ubuntu && \
     groupmod -n dev ubuntu && \
@@ -110,27 +109,27 @@ RUN mkdir -p /home/dev/.local/bin && \
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 
 # Crd2Pulumi
-COPY --from=crd2pulumi /crd2pulumi .local/bin/crd2pulumi
+COPY --chown=dev:dev --from=crd2pulumi /crd2pulumi .local/bin/crd2pulumi
 
 # NodeJS
-COPY --from=nodejs /root/.nvm .nvm
-COPY --from=nodejs /root/.cache/node .cache/node
-COPY --from=nodejs /root/.yarnrc.yml .yarnrc.yml
+COPY --chown=dev:dev --from=nodejs /root/.nvm .nvm
+COPY --chown=dev:dev --from=nodejs /root/.cache/node .cache/node
+COPY --chown=dev:dev --from=nodejs /root/.yarnrc.yml .yarnrc.yml
 RUN echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc && \
     echo '. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
 
 # kubectl
-COPY --from=kubectl /kubectl .local/bin/kubectl
+COPY --chown=dev:dev --from=kubectl /kubectl .local/bin/kubectl
 
 # Helm
-COPY --from=helm /linux-amd64/helm .local/bin/helm
+COPY --chown=dev:dev --from=helm /linux-amd64/helm .local/bin/helm
 
 # Pulumi
-COPY --from=pulumi /root/.pulumi .local/pulumi
+COPY --chown=dev:dev --from=pulumi /root/.pulumi .local/pulumi
 RUN echo 'export PATH="$HOME/.local/pulumi/bin:$PATH"' >> ~/.bashrc
 
 # Golang
-COPY --from=golang /go .local/go
+COPY --chown=dev:dev --from=golang /go .local/go
 RUN echo 'export PATH="$HOME/.local/go/bin:$PATH"' >> ~/.bashrc && \
     echo 'export GOPATH="$HOME/go"' >> ~/.bashrc && \
     echo 'export PATH="$HOME/go/bin:$PATH"' >> ~/.bashrc
