@@ -6,7 +6,6 @@
   outputs = {
     self,
     nixpkgs,
-    attic,
   }: let
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
   in {
