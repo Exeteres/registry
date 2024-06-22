@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push image
         run: |
-          cd nix/attic
-          nix build #.image
+          nix build .#image
           image_name=`docker load < result | grep -oP 'Loaded image: \K.*'`
           docker push $image_name
+        working-directory: nix/attic
