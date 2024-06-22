@@ -1,0 +1,32 @@
+name: attic
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "nix/attic/**"
+      - ".github/workflows/attic.yaml"
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v27
+
+      - name: Build and push image
+        run: |
+          nix build #.image
+          image_name=`docker load < result | grep -oP 'Loaded image: \K.*'`
+          docker push $image_name

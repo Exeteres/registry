@@ -5,7 +5,8 @@ You can use any of the Dockerfiles or built images as you wish.
 
 ## Contents
 
-- [devcontainer](./devcontainer): A universal devcontainer image which I use for all my projects.
+- [devcontainer](./devcontainer): A universal devcontainer image which I use for all my projects;
+- [nix](./nix): A collection of docker containers with bundled nix packages.
 
 ## License
 
