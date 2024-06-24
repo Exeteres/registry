@@ -18,6 +18,10 @@
     "ghcr.io/devcontainers/features/nix:1": {
       "packages": "nil, alejandra, dive",
       "extraNixConfig": "extra-experimental-features = nix-command flakes"
+    },
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "8.0",
+      "additionalVersions": ["6.0", "7.0"]
     }
   },
 
