@@ -18,6 +18,15 @@
         sha256 = "sha256-lvvNrCM69x4q2Meoxt0zQ9eTAmF1n9LyuuEmr1PBKQg=";
       };
 
+      extraCommands = ''
+        # The upstream image links the whole /bin directory to /usr/bin,
+        # but buildLayeredImage overwrites it with the new /bin directory and links /nix/store binaries to it.
+        # This breaks some tools expecting /bin/sh to be present (like VSCode DevContainers),
+        # so we need to create a symlink to /usr/bin/sh.
+        ln -s /usr/bin/sh /bin/sh
+        ln -s /usr/bin/bash /bin/bash
+      '';
+
       contents = with pkgs; [
         kubectl
         vim
