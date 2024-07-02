@@ -34,6 +34,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+
       - name: Install @devcontainers/cli
         run: npm install -g @devcontainers/cli
 
@@ -48,11 +51,12 @@ jobs:
         run: |
           devcontainer build --image-name devcontainer --workspace-folder . --cache-from type=gha --cache-to type=gha,mode=max
           docker save devcontainer -o devcontainer
+          git add devcontainer
         working-directory: devcontainer
 
       - name: Populate the devcontainer with nix packages and push to registry
         run: |
-          nix build .#image
+          nix build .#image --impure
           image_name=`docker load < result | grep -oP 'Loaded image: \K.*'`
           docker push $image_name
         working-directory: devcontainer
