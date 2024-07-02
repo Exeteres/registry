@@ -18,6 +18,11 @@
         sha256 = "sha256-lvvNrCM69x4q2Meoxt0zQ9eTAmF1n9LyuuEmr1PBKQg=";
       };
 
+      extraCommands = ''
+        # Skip the server requirements check in VSCode (which fails for some reason)
+        touch /tmp/vscode-skip-server-requirements-check
+      '';
+
       contents = with pkgs; [
         kubectl
         vim
