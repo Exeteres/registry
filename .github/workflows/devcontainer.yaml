@@ -44,11 +44,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Normalize owner name
+      - name: Build the devcontainer intermediate image
         run: |
-          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
-        env:
-          OWNER: "${{ github.repository_owner }}"
+          devcontainer build --image-name devcontainer --workspace-folder devcontainer --cache-from type=gha --cache-to type=gha,mode=max
+          docker save devcontainer -o devcontainer
 
-      - name: Build and push the image
-        run: devcontainer build --image-name ${{ env.REGISTRY }}/${{ env.OWNER_LC }}/${{ env.IMAGE_NAME }} --workspace-folder devcontainer --cache-from type=gha --cache-to type=gha,mode=max --push
+      - name: Populate the devcontainer with nix packages and push to registry
+        run: |
+          nix build .#image
+          image_name=`docker load < result | grep -oP 'Loaded image: \K.*'`
+          docker push $image_name
