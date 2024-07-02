@@ -1,0 +1,38 @@
+name: devcontainer
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "devcontainer/flake.nix"
+      - "devcontainer/flake.lock"
+      - ".github/workflows/devcontainer.yaml"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+
+      - name: Log in to the registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push the devcontainer image
+        run: |
+          nix build .#image
+          image_name=`docker load < result | grep -oP 'Loaded image: \K.*'`
+          docker push $image_name
+        working-directory: devcontainer
