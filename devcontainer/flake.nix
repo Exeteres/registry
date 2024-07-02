@@ -28,6 +28,9 @@
         go
         crd2pulumi
         dotnet-sdk_8
+        nodenv
+        alejandra
+        nil
       ];
     };
   };
