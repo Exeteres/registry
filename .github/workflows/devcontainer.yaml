@@ -46,7 +46,7 @@ jobs:
 
       - name: Build the devcontainer intermediate image
         run: |
-          devcontainer build --image-name devcontainer --workspace-folder devcontainer --cache-from type=gha --cache-to type=gha,mode=max
+          devcontainer build --image-name devcontainer --workspace-folder . --cache-from type=gha --cache-to type=gha,mode=max
           docker save devcontainer -o devcontainer
         working-directory: devcontainer
 
