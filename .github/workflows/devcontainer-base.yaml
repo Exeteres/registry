@@ -42,5 +42,5 @@ jobs:
 
       - name: Build and push the devcontainer base image
         run: |
-          devcontainer build --image-name ghcr.io/exeteres/devcontainer-base:${{ env.GITHUB_SHA }} --workspace-folder . --push
+          devcontainer build --image-name ghcr.io/exeteres/devcontainer-base:$GITHUB_SHA --workspace-folder . --push
         working-directory: devcontainer
