@@ -4,7 +4,7 @@ Here is a universal devcontainer image which I use for all my projects.
 It contains all the sdk's, tools and utilities and can be used to instantly start working on any project.
 
 It is quite large in size, but is shared across all projects, so actually it can save a lot of space in the long run.
-Moreover, it is built using multi-stage docker build, so updates are incremental and fast.
+Moreover, it is partially built using Nix, so updates are incremental and fast.
 
 ## Usage
 
@@ -18,7 +18,8 @@ Here is an example of how to use this devcontainer in your project:
   "name": "Project Name",
   "dockerComposeFile": "docker-compose.yml",
   "service": "main",
-  "workspaceFolder": "/home/dev/workspace"
+  "workspaceFolder": "/home/dev/workspace",
+  "remoteUser": "dev"
 }
 ```
 
@@ -42,12 +43,15 @@ networks:
 ```
 
 You can also add some credentials mounts like `~/.kube` or `~/.pulumi` to authenticate the tools.
+You can also pass `/var/run/docker.sock` to the container to allow it to use the host's Docker daemon.
 
 ## Features
 
-- Ubuntu 24.04 + all build dependencies (based on `buildpack-deps`)
-- NVM + Node.js LTS + Corepack (Yarn + PNPM)
+- Alpine Linux + common utilities
+- Docker CLI (expecting Docker from host)
 - Golang
 - kubectl + helm + pulumi + crd2pulumi
-- Docker in Docker
-- Nix (+ nil and alejandra)
+- Node.js + corepack
+- .NET SDK
+- Protobuf + gRPC + plugins
+- Python

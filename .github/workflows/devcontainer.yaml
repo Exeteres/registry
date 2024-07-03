@@ -4,8 +4,7 @@ on:
   push:
     branches: ["master"]
     paths:
-      - "devcontainer/flake.nix"
-      - "devcontainer/flake.lock"
+      - "devcontainer/**"
       - ".github/workflows/devcontainer.yaml"
 
 jobs:
@@ -20,6 +19,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@v3
+
       - name: Install Nix
         uses: cachix/install-nix-action@v27
 
@@ -31,8 +36,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push the devcontainer image
-        run: |
-          nix build .#image
-          image_name=`docker load < result | grep -oP 'Loaded image: \K.*'`
-          docker push $image_name
+        run: ./build.sh
         working-directory: devcontainer
