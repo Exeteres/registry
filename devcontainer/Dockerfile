@@ -43,6 +43,11 @@ RUN echo "Running commands as root" && \
         strace \
         docker-cli \
 
+        # Some development packages
+        nodejs \
+        python3 \
+        protoc \
+
         # Zsh packages
         zsh \
         zsh-autosuggestions \
@@ -52,7 +57,10 @@ RUN echo "Running commands as root" && \
     adduser -D -s /bin/zsh dev && \
 
     # Add "dev" user to sudoers
-    echo "dev ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/dev
+    echo "dev ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/dev && \
+
+    # Enable corepack
+    corepack enable
 
 USER dev
 

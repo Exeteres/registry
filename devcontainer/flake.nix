@@ -23,15 +23,8 @@
         go
         crd2pulumi
         dotnet-sdk_8
-        nodePackages.yarn
-        nodePackages.pnpm
-        nodejs
         alejandra
         nil
-        python313
-        grpc-tools
-        protoc-gen-go
-        protoc-gen-js
       ];
     };
   };

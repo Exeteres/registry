@@ -53,5 +53,5 @@ You can also pass `/var/run/docker.sock` to the container to allow it to use the
 - kubectl + helm + pulumi + crd2pulumi
 - Node.js + corepack
 - .NET SDK
-- Protobuf + gRPC + plugins
-- Python
+- Protoc
+- Python 3
