@@ -44,7 +44,7 @@ RUN echo "Running commands as root" && \
         docker-cli \
 
         # Some development packages
-        nodejs \
+        nodejs-current \
         python3 \
         protoc \
 
