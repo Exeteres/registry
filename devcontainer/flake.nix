@@ -23,7 +23,8 @@
         go
         crd2pulumi
         dotnet-sdk_8
-        corepack
+        nodePackages.yarn
+        nodePackages.pnpm
         nodejs
         alejandra
         nil
