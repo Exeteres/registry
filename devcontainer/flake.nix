@@ -25,6 +25,7 @@
         dotnet-sdk_8
         alejandra
         nil
+        go-task
       ];
     };
   };
