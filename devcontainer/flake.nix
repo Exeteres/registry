@@ -26,6 +26,9 @@
         alejandra
         nil
         go-task
+        func
+        kn
+        flutter
       ];
     };
   };
