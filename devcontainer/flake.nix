@@ -28,7 +28,6 @@
         go-task
         func
         kn
-        flutter
       ];
     };
   };
